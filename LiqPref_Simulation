@@ -1,0 +1,53 @@
+import matplotlib.pyplot as plt
+import random
+
+# Variation der Vorzugsbeträge für die Funktionen definieren:
+v1 = random.randint(1, 6) #bezieht sich auf y1
+v2 = random.randint(4, 10) #bezieht sich auf y2
+v3 = random.randint(3, 10) #bezieht sich auf y3
+
+# Variation der Steigung (pro-rata) definieren:
+m1 = random.uniform(0.1, 0.7) #bezieht sich auf y1
+m2 = random.uniform(0.1, 0.7) #bezieht sich auf y2
+m3 = random.uniform(0.1, 0.7) #bezieht sich auf y3
+
+def draw_function():
+    x = list(range(0, 21))
+
+    # y1 - y3: Nicht-anrechenbare LiqPref
+    y1 = []
+    for i in range(len(x)):
+        if i < v1:
+            y1.append(i)
+        else:
+            y1.append(y1[i-1] + m1)
+    y2 = []
+    for i in range(len(x)):
+        if i < v2:
+            y2.append(i)
+        else:
+            y2.append(y2[i-1] + m2)
+    y3 = []
+    for i in range(len(x)):
+        if i < v3:
+            y3.append(i)
+        else:
+            y3.append(y3[i-1] + m3)
+
+    # y4: Anrechenbare LiqPref
+    y4 = [0, 1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3.3, 3.6, 3.9, 4.2, 4.5, 4.8, 5.1, 5.4, 5.7, 6.0]
+
+    #Information zur Bezeichnung der Funktionen
+    plt.plot(x, y1, color='green', label='1')
+    plt.plot(x, y2, color='blue', label='2')
+    plt.plot(x, y3, color='red', label='3')
+    plt.plot(x, y4, color='black', label='4')
+    plt.xlabel('Gesamtexit in Mio. EUR')
+    plt.ylabel('Payoff für InvestorIn in EUR')
+    plt.title('InvestorInnen-Payoff in Abhängigkeit der Gesamtexithöhe')
+    plt.xticks(range(0, 21, 1))  # Ergänze die x-Achse mit Schritten der Größe 1
+    plt.yticks(range(0, 21, 1))  # Ergänze die y-Achse mit Schritten der Größe 1
+    plt.grid(True, which='both')
+    plt.legend()
+    plt.show()
+draw_function()
